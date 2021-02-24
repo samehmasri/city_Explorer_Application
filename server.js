@@ -12,7 +12,7 @@ dot.config();
 const superAgent0 = require('superagent');
 
 //App setup
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(cors());
 
@@ -69,7 +69,7 @@ function parkHandler(request,response){
     let url = `https://developer.nps.gov/api/v1/parks?latitude=${latitude}&longitude=${longitude}&api_key=${parkKey}`;
 
   superAgent0.get(url).then(parkData =>{
-    // console.log(parkData);
+
     let parkData0 = parkData.body.data.map(element => {
       const parkObject = new Park(element);
       return parkObject;
@@ -85,11 +85,7 @@ function notFoundHandler(req, res) {
 }
 
 function errorHandler(error, req, res) {
-    // let errObj = {
-    //     status : 500 ,
-    //     responseText : "Sorry, something went wrong"
-    // }
-    // res.send(errObj);
+
     res.status(500).send(error);
 }
 
